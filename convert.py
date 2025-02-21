@@ -50,19 +50,15 @@ def get_audio_duration(audio_path):
     retries = 5
     for _ in range(retries):
         try:
-            with AudioFileClip(random_song) as audio_clip:
+            with AudioFileClip(audio_path) as audio_clip:
                 return audio_clip.duration
         except FileNotFoundError as e:
-            print(f"File not found: {e}")
             sleep_time = random.uniform(1, 4)
-            print(f"Retrying in {sleep_time:.2f} seconds...")
             time.sleep(sleep_time)
         except Exception as e:
-            print(f"Error occurred: {e}")
             sleep_time = random.uniform(1, 4)
-            print(f"Retrying in {sleep_time:.2f} seconds...")
             time.sleep(sleep_time)
-    raise Exception(f"Could not retrieve audio duration after {retries} attempts.")
+    return None
 
 def generate_random_values(config):
     """Generates random values based on the given configuration."""
@@ -126,7 +122,9 @@ task_map = []
 for f in os.listdir(INPUT_FOLDER):
     if f.endswith('.mp4'):
         random_song = get_random_song()
-        song_duration = get_audio_duration(random_song)
+        song_duration = 0
+        if random_song:
+            song_duration = get_audio_duration(random_song)
         task_map.append({
             'filename':f,
             'random_song': random_song,
