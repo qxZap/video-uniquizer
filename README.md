@@ -14,7 +14,7 @@ WINDOWS:
 - run `python3 -m pip install -r requirements.txt`
 
 
-MAC:
+MAC: (or run in terminal `bash install.sh` not 100% sure it works)
 
 - Install homebrew https://brew.sh/
 - Install ffmpeg with command `brew install ffmpeg`
