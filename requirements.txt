@@ -1,4 +1,3 @@
 av
 moviepy
-mutagen
 ffmpeg-python

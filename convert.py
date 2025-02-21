@@ -1,7 +1,6 @@
 import os
 import random
 import ffmpeg
-from mutagen.mp3 import MP3
 from moviepy import VideoFileClip, AudioFileClip, CompositeAudioClip
 
 # Configuration settings
@@ -99,7 +98,10 @@ for filename in os.listdir(INPUT_FOLDER):
             with VideoFileClip(output_filename) as video_clip:
                 video_duration = video_clip.duration
 
-            song_duration = MP3(random_song).info.length
+            song_duration = 0
+
+            with AudioFileClip(random_song) as audio_clip:
+                song_duration = audio_clip.duration
 
             if song_duration > video_duration:
                 random_start = random.uniform(0, song_duration - video_duration)
